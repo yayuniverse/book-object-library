@@ -53,12 +53,20 @@ h4 {
 
 .read-tag {
   position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   top: 1.25rem;
   padding: 0.25rem 0.75rem;
   border-radius: 64px;
   background-color: #111111a3;
   font-size: 0.75rem;
   color: whitesmoke;
+}
+
+.read-tag svg {
+    width: 12px;
+    height: 12px;
 }
 
 .subtitle {
