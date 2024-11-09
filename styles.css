@@ -1,0 +1,35 @@
+body {
+  background-color: #111;
+  color: whitesmoke;
+  height: 100vh;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 5vh;
+  flex-wrap: wrap;
+}
+
+span {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.bookshelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 220px);
+  grid-auto-rows: 300px;
+  gap: 4rem;
+  margin: 8rem 10rem 0;
+  justify-content: center;
+}
+
+.book {
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 1.25rem;
+}
