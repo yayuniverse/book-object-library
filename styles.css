@@ -10,11 +10,14 @@ form {
   gap: 2.5rem;
   margin-top: 5vh;
   flex-wrap: wrap;
+  font-size: 0.875rem;
 }
 
 button {
   padding: 0.25rem 1rem;
   font-weight: 500;
+  border: none;
+  border-radius: 2px;
 }
 
 span {
@@ -25,6 +28,23 @@ span {
 
 span input {
     align-self: stretch;
+    background-color: #444;
+    border: 1.5px solid #666;
+    border-radius: 2px;
+}
+
+span input[type="checkbox"] {
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    align-self: center;
+    background-color: #444;
+}
+
+span input[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-color: #666;
 }
 
 .bookshelf {
