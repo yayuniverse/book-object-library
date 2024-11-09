@@ -11,13 +11,21 @@ form {
   margin-top: 5vh;
   flex-wrap: wrap;
   font-size: 0.875rem;
+  color: #aaa;
 }
 
 button {
-  padding: 0.25rem 1rem;
+  padding: 0.35rem 1rem;
+  font-size: 13px;
   font-weight: 500;
   border: none;
   border-radius: 2px;
+  background-color: #222;
+  color: #aaa;
+}
+
+button:hover {
+    background-color: #333;
 }
 
 span {
@@ -31,6 +39,7 @@ span input {
     background-color: #444;
     border: 1.5px solid #666;
     border-radius: 2px;
+    color: whitesmoke;
 }
 
 span input[type="checkbox"] {
