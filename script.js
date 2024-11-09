@@ -29,6 +29,18 @@ function Book(title, author, published, read) {
   this.read = read;
 }
 
+function createBookObject() {
+  const newBook = new Book(
+    titleField.value,
+    authorField.value,
+    publishedField.value,
+    readField.checked
+  );
+
+  console.log(newBook);
+  bookLibrary.push(newBook);
+}
+
 function updateHTML() {
   const book = document.createElement("div");
   book.classList.add("book");
@@ -52,25 +64,28 @@ function updateHTML() {
 }
 
 function updateLibrary(bookLibrary) {
+  bookShelf.replaceChildren();
+
   for (const item of bookLibrary) {
+    updateHTML();
+    const bookElement = bookShelf.lastElementChild;
+    bookElement.querySelector("h4").textContent = item.title;
+    bookElement.querySelectorAll("p")[0].textContent = item.author;
+    bookElement.querySelectorAll("p")[1].textContent = item.published;
+    bookElement.querySelector(".read-tag").textContent = "Unread";
   }
 }
 
-addBookBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-
-  const newBook = new Book(
-    titleField.value,
-    authorField.value,
-    publishedField.value,
-    readField.checked
-  );
-
-  console.log(newBook);
-  bookLibrary.push(newBook);
-
+function emptyFormFields() {
   titleField.value = "";
   authorField.value = "";
   publishedField.value = "";
   readField.checked = false;
+}
+
+addBookBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  createBookObject();
+  emptyFormFields();
+  updateLibrary(bookLibrary);
 });
