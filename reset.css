@@ -20,6 +20,13 @@ body {
   font-size: 1rem;
 }
 
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 p,
 h1,
 h2,
