@@ -42,6 +42,11 @@ span input {
     color: whitesmoke;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 span input[type="checkbox"] {
     appearance: none;
     width: 13px;
