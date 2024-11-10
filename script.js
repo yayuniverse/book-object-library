@@ -85,6 +85,12 @@ function emptyFormFields() {
 
 addBookBtn.addEventListener("click", (event) => {
   event.preventDefault();
+
+  if (!titleField.value || !authorField.value || !publishedField.value) {
+    alert("Please fill out all fields");
+    return;
+  }
+  
   createBookObject();
   emptyFormFields();
   updateLibrary(bookLibrary);
