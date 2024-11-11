@@ -87,17 +87,22 @@ span input[type="checkbox"]:checked {
   height: 20px;
   position: absolute;
   top: 24px;
-  right: 20px;
+  right: 16px;
   opacity: 0;
-  transition: opacity 0.15s ease-in-out;
-}
-
-.book:hover > svg {
-  opacity: 1;
+  transition: opacity 0.15s ease-in-out, right 0.15s ease-out;
 }
 
 .book > svg path {
   stroke: #111111a3;
+}
+
+.book:hover > svg {
+  opacity: 1;
+  right: 20px;
+}
+
+.book > svg:hover path, .book > svg path:hover {
+  stroke: #930a0aa3;
 }
 
 h4 {
