@@ -29,6 +29,10 @@ function Book(title, author, published, read) {
   this.read = read;
 }
 
+Book.prototype.toggleReadState = function () {
+  this.read = !this.read;
+};
+
 function createBookObject() {
   const newBook = new Book(
     titleField.value,
@@ -37,7 +41,6 @@ function createBookObject() {
     readField.checked
   );
 
-  console.log(newBook);
   bookLibrary.push(newBook);
 }
 
@@ -81,12 +84,15 @@ function updateLibrary() {
     bookElement.querySelector("h4").textContent = item.title;
     bookElement.querySelectorAll("p")[1].textContent = item.author;
     bookElement.querySelectorAll("p")[2].textContent = item.published;
-    bookElement.querySelectorAll("svg")[0].dataset.title = item.title;
-    bookElement.querySelectorAll("svg")[0].dataset.author = item.author;
-    bookElement.querySelectorAll("svg")[0].dataset.published = item.published;
-    item.read === true
-      ? (bookElement.querySelector(".read-tag").textContent = "Read")
-      : (bookElement.querySelector(".read-tag").textContent = "Unread");
+    bookElement.querySelector(".delete-btn").dataset.title = item.title;
+    bookElement.querySelector(".delete-btn").dataset.author = item.author;
+    bookElement.querySelector(".delete-btn").dataset.published = item.published;
+    if (item.read === true) {
+      bookElement.querySelector(".read-tag").innerHTML = checkmark;
+      bookElement.querySelector(".read-tag").innerHTML += `Read`;
+    } else {
+      bookElement.querySelector(".read-tag").textContent = "Unread";
+    }
   }
 }
 
@@ -98,11 +104,13 @@ function emptyFormFields() {
 }
 
 function deleteBook(e) {
+  const deleteBtn = e.target.closest(".delete-btn");
+
   for (const item of bookLibrary) {
     if (
-      e.target.dataset.title === item.title &&
-      e.target.dataset.author === item.author &&
-      e.target.dataset.published === item.published
+      deleteBtn.dataset.title === item.title &&
+      deleteBtn.dataset.author === item.author &&
+      deleteBtn.dataset.published === item.published
     ) {
       bookLibrary.splice(bookLibrary.indexOf(item), 1);
     }
@@ -123,12 +131,9 @@ addBookBtn.addEventListener("click", (e) => {
 });
 
 bookShelf.addEventListener("click", (e) => {
-  if (
-    e.target.classList.contains("delete-btn") ||
-    e.target.parentElement.classList.contains("delete-btn")
-  ) {
+  if (e.target.closest(".delete-btn")) {
     deleteBook(e);
   }
   updateLibrary();
+  console.log(e.target);
 });
-
