@@ -19,13 +19,6 @@ const checkmark = `<svg
               stroke-linejoin="round"
             />
           </svg>`;
-const deleteIcon = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4.89844 12.8575H43.1013" stroke="black" stroke-width="3.43" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9.67383 12.8575H38.326V41.5096C38.326 42.3539 37.9904 43.1638 37.3935 43.7607C36.7966 44.3577 35.9867 44.6932 35.1424 44.6932H12.8574C12.0131 44.6932 11.2033 44.3577 10.6063 43.7607C10.0092 43.1638 9.67383 42.3539 9.67383 41.5096V12.8575Z" stroke="black" stroke-width="3.43" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M16.041 12.8575V11.2657C16.041 9.15488 16.8795 7.13048 18.3721 5.63789C19.8647 4.14531 21.8891 3.30679 23.9999 3.30679C26.1108 3.30679 28.1352 4.14531 29.6278 5.63789C31.1204 7.13048 31.9589 9.15488 31.9589 11.2657V12.8575" stroke="black" stroke-width="3.43" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M19.2246 22.4129V35.1521" stroke="black" stroke-width="3.43" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M28.7754 22.4129V35.1521" stroke="black" stroke-width="3.43" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>`;
 
 const bookLibrary = [];
 
@@ -88,10 +81,12 @@ function updateLibrary() {
     bookElement.querySelector("h4").textContent = item.title;
     bookElement.querySelectorAll("p")[1].textContent = item.author;
     bookElement.querySelectorAll("p")[2].textContent = item.published;
-    bookElement.querySelector(".read-tag").textContent = "Unread";
     bookElement.querySelectorAll("svg")[0].dataset.title = item.title;
     bookElement.querySelectorAll("svg")[0].dataset.author = item.author;
     bookElement.querySelectorAll("svg")[0].dataset.published = item.published;
+    item.read === true
+      ? (bookElement.querySelector(".read-tag").textContent = "Read")
+      : (bookElement.querySelector(".read-tag").textContent = "Unread");
   }
 }
 
@@ -109,13 +104,13 @@ function deleteBook(e) {
       e.target.dataset.author === item.author &&
       e.target.dataset.published === item.published
     ) {
-      bookLibrary.splice(bookLibrary.indexOf(item), 1)
+      bookLibrary.splice(bookLibrary.indexOf(item), 1);
     }
   }
 }
 
-addBookBtn.addEventListener("click", (event) => {
-  event.preventDefault();
+addBookBtn.addEventListener("click", (e) => {
+  e.preventDefault();
 
   if (!titleField.value || !authorField.value || !publishedField.value) {
     alert("Please fill out all fields");
@@ -128,10 +123,12 @@ addBookBtn.addEventListener("click", (event) => {
 });
 
 bookShelf.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-btn") || e.target.parentElement.classList.contains("delete-btn")) {
-    deleteBook(e)
+  if (
+    e.target.classList.contains("delete-btn") ||
+    e.target.parentElement.classList.contains("delete-btn")
+  ) {
+    deleteBook(e);
   }
-  updateLibrary()
+  updateLibrary();
 });
 
-document.addEventListener("click", (e) => console.log(e.target))
