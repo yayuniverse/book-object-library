@@ -12,3 +12,8 @@ A JavaScript library for managing a collection of books.
 - HTML
 - CSS 
 - JavaScript
+
+#Future improvements
+- Improve toggle read state interaction so the delete button animation doesn't refresh everytime
+- Save state between page refreshes
+- Add book color options
