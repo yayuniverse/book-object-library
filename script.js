@@ -21,12 +21,15 @@ const checkmark = `<svg
           </svg>`;
 
 const bookLibrary = [];
+let bookIndex = -1;
 
 function Book(title, author, published, read) {
   this.title = title;
   this.author = author;
   this.published = published;
   this.read = read;
+  bookIndex++
+  this.index = bookIndex
 }
 
 Book.prototype.toggleReadState = function () {
@@ -40,7 +43,7 @@ function createBookObject() {
     publishedField.value,
     readField.checked
   );
-
+  console.log(`New Book's Index: ${newBook.index}`)
   bookLibrary.push(newBook);
 }
 
@@ -51,7 +54,6 @@ function updateHTML() {
 
   const bookReadStatus = document.createElement("p");
   bookReadStatus.classList.add("read-tag");
-  bookReadStatus.innerHTML = checkmark;
   book.appendChild(bookReadStatus);
 
   book.innerHTML += `<svg class="delete-btn" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,13 +82,11 @@ function updateLibrary() {
   for (const item of bookLibrary) {
     updateHTML();
     const bookElement = bookShelf.lastElementChild;
-    console.log(bookElement);
     bookElement.querySelector("h4").textContent = item.title;
     bookElement.querySelectorAll("p")[1].textContent = item.author;
     bookElement.querySelectorAll("p")[2].textContent = item.published;
-    bookElement.querySelector(".delete-btn").dataset.title = item.title;
-    bookElement.querySelector(".delete-btn").dataset.author = item.author;
-    bookElement.querySelector(".delete-btn").dataset.published = item.published;
+    bookElement.querySelector(".delete-btn").dataset.index = item.index;
+
     if (item.read === true) {
       bookElement.querySelector(".read-tag").innerHTML = checkmark;
       bookElement.querySelector(".read-tag").innerHTML += `Read`;
@@ -105,16 +105,8 @@ function emptyFormFields() {
 
 function deleteBook(e) {
   const deleteBtn = e.target.closest(".delete-btn");
-
-  for (const item of bookLibrary) {
-    if (
-      deleteBtn.dataset.title === item.title &&
-      deleteBtn.dataset.author === item.author &&
-      deleteBtn.dataset.published === item.published
-    ) {
-      bookLibrary.splice(bookLibrary.indexOf(item), 1);
-    }
-  }
+  let index = bookLibrary.findIndex(book => book.index === parseInt(deleteBtn.dataset.index));
+  bookLibrary.splice(index, 1);
 }
 
 addBookBtn.addEventListener("click", (e) => {
@@ -135,5 +127,4 @@ bookShelf.addEventListener("click", (e) => {
     deleteBook(e);
   }
   updateLibrary();
-  console.log(e.target);
 });
