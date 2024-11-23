@@ -28,8 +28,8 @@ function Book(title, author, published, read) {
   this.author = author;
   this.published = published;
   this.read = read;
-  bookIndex++
-  this.index = bookIndex
+  bookIndex++;
+  this.index = bookIndex;
 }
 
 Book.prototype.toggleReadState = function () {
@@ -43,7 +43,7 @@ function createBookObject() {
     publishedField.value,
     readField.checked
   );
-  console.log(`New Book's Index: ${newBook.index}`)
+  console.log(`New Book's Index: ${newBook.index}`);
   bookLibrary.push(newBook);
 }
 
@@ -86,6 +86,7 @@ function updateLibrary() {
     bookElement.querySelectorAll("p")[1].textContent = item.author;
     bookElement.querySelectorAll("p")[2].textContent = item.published;
     bookElement.querySelector(".delete-btn").dataset.index = item.index;
+    bookElement.querySelector(".read-tag").dataset.index = item.index;
 
     if (item.read === true) {
       bookElement.querySelector(".read-tag").innerHTML = checkmark;
@@ -103,9 +104,17 @@ function emptyFormFields() {
   readField.checked = false;
 }
 
+function changeReadStatus(e) {
+  const readTag = e.target.closest(".read-tag")
+  let index = bookLibrary.findIndex(Book => Book.index === parseInt(readTag.dataset.index))
+  bookLibrary[index].toggleReadState()
+}
+
 function deleteBook(e) {
   const deleteBtn = e.target.closest(".delete-btn");
-  let index = bookLibrary.findIndex(book => book.index === parseInt(deleteBtn.dataset.index));
+  let index = bookLibrary.findIndex(
+    (book) => book.index === parseInt(deleteBtn.dataset.index)
+  );
   bookLibrary.splice(index, 1);
 }
 
@@ -125,6 +134,8 @@ addBookBtn.addEventListener("click", (e) => {
 bookShelf.addEventListener("click", (e) => {
   if (e.target.closest(".delete-btn")) {
     deleteBook(e);
+  } else if (e.target.closest(".read-tag")) {
+    changeReadStatus(e)
   }
   updateLibrary();
 });
