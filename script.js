@@ -23,18 +23,20 @@ const checkmark = `<svg
 const bookLibrary = [];
 let bookIndex = -1;
 
-function Book(title, author, published, read) {
-  this.title = title;
-  this.author = author;
-  this.published = published;
-  this.read = read;
-  bookIndex++;
-  this.index = bookIndex;
-}
+class Book {
+  constructor(title, author, published, read) {
+    this.title = title;
+    this.author = author;
+    this.published = published;
+    this.read = read;
+    bookIndex++;
+    this.index = bookIndex;
+  }
 
-Book.prototype.toggleReadState = function () {
-  this.read = !this.read;
-};
+  toggleReadState() {
+    this.read = !this.read;
+  }
+}
 
 function createBookObject() {
   const newBook = new Book(
@@ -105,9 +107,11 @@ function emptyFormFields() {
 }
 
 function changeReadStatus(e) {
-  const readTag = e.target.closest(".read-tag")
-  let index = bookLibrary.findIndex(Book => Book.index === parseInt(readTag.dataset.index))
-  bookLibrary[index].toggleReadState()
+  const readTag = e.target.closest(".read-tag");
+  let index = bookLibrary.findIndex(
+    (Book) => Book.index === parseInt(readTag.dataset.index)
+  );
+  bookLibrary[index].toggleReadState();
 }
 
 function deleteBook(e) {
@@ -135,7 +139,7 @@ bookShelf.addEventListener("click", (e) => {
   if (e.target.closest(".delete-btn")) {
     deleteBook(e);
   } else if (e.target.closest(".read-tag")) {
-    changeReadStatus(e)
+    changeReadStatus(e);
   }
   updateLibrary();
 });
