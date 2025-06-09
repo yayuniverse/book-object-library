@@ -122,13 +122,8 @@ function deleteBook(e) {
   bookLibrary.splice(index, 1);
 }
 
-addBookBtn.addEventListener("click", (e) => {
+document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
-
-  if (!titleField.value || !authorField.value || !publishedField.value) {
-    alert("Please fill out all fields");
-    return;
-  }
 
   createBookObject();
   emptyFormFields();
