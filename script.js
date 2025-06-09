@@ -130,6 +130,13 @@ document.querySelector("form").addEventListener("submit", (e) => {
   updateLibrary();
 });
 
+publishedField.addEventListener("keydown", (e) => {
+  const unwantedChars = ["e", "E", "+", "-", "."];
+  if (unwantedChars.includes(e.key)) {
+    e.preventDefault();
+  }
+});
+
 bookShelf.addEventListener("click", (e) => {
   if (e.target.closest(".delete-btn")) {
     deleteBook(e);
