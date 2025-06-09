@@ -12,12 +12,12 @@
     <form>
       <span>
         <label for="">Title</label>
-        <input type="text" name="title" id="title" />
+        <input type="text" name="title" id="title" required/>
       </span>
 
       <span>
         <label for="">Author</label>
-        <input type="text" name="author" id="author" />
+        <input type="text" name="author" id="author" required/>
       </span>
 
       <span>
@@ -27,16 +27,17 @@
           name="year-published"
           id="year-published"
           min="0"
+          required
         />
       </span>
 
       <span class="radio-group">
-        <input type="hidden" name="read-status" value="false" />
-        <input type="checkbox" id="read" name="read-status" value="true" />
+        <!-- <input type="hidden" name="read-status" value="false" /> -->
+        <input type="checkbox" id="read" name="read-status" value="true" required>
         <label for="read">Read</label>
       </span>
 
-      <button type="button">Add book</button>
+      <button type="submit">Add book</button>
     </form>
 
     <div class="bookshelf">
